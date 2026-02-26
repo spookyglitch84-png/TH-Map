@@ -1,0 +1,10 @@
+[
+  {
+    "id": "haven_shop",
+    "name": "Teddy's Haven Shop",
+    "x": 2000,
+    "y": 2000,
+    "category": "village",
+    "description": "Your cozy shop nestled among trees."
+  }
+]
