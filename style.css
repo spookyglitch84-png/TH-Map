@@ -7,6 +7,7 @@ body {
 
 #sidebar {
   width: 300px;
+  z-index: 1000;
   background: #f8f3ea;
   padding: 20px;
   box-shadow: 4px 0 15px rgba(0,0,0,0.1);
@@ -17,6 +18,7 @@ body {
 #map {
   flex: 1;
   height: 100vh;
+  z-index: 1;
 }
 
 .fruitMarker {
@@ -28,4 +30,8 @@ body {
   background-repeat: no-repeat;
   transform: translate(-50%, -50%);
   cursor: pointer;
+}
+
+.leaflet-container {
+  cursor: crosshair !important;
 }
