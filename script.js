@@ -15,31 +15,6 @@ const layers = {
   quest: L.layerGroup().addTo(map)
 };
 
-fetch("locations.json")
-  .then(res => res.json())
-  .then(data => {
-    data.forEach(loc => {
-      const marker = L.marker([loc.y, loc.x])
-        .bindPopup(`<h3>${loc.name}</h3><p>${loc.description}</p>`);
-
-      if (layers[loc.category]) {
-        marker.addTo(layers[loc.category]);
-      }
-    });
-  });
-
-document.querySelectorAll("#sidebar input[type=checkbox]")
-  .forEach(box => {
-    box.addEventListener("change", function() {
-      const category = this.dataset.category;
-      if (this.checked) {
-        map.addLayer(layers[category]);
-      } else {
-        map.removeLayer(layers[category]);
-      }
-    });
-  });
-
 // === Coordinate Capture Tool ===
 
 map.on('click', function (e) {
@@ -65,3 +40,30 @@ map.on('click', function (e) {
     .openPopup();
 
 });
+
+
+fetch("locations.json")
+  .then(res => res.json())
+  .then(data => {
+    data.forEach(loc => {
+      const marker = L.marker([loc.y, loc.x])
+        .bindPopup(`<h3>${loc.name}</h3><p>${loc.description}</p>`);
+
+      if (layers[loc.category]) {
+        marker.addTo(layers[loc.category]);
+      }
+    });
+  });
+
+document.querySelectorAll("#sidebar input[type=checkbox]")
+  .forEach(box => {
+    box.addEventListener("change", function() {
+      const category = this.dataset.category;
+      if (this.checked) {
+        map.addLayer(layers[category]);
+      } else {
+        map.removeLayer(layers[category]);
+      }
+    });
+  });
+
