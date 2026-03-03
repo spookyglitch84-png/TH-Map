@@ -59,3 +59,7 @@ body {
 .leaflet-container {
   cursor: crosshair !important;
 }
+
+  .leaflet-interactive {
+  transition: opacity 0.2s ease;
+}
