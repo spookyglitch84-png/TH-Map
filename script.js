@@ -4,27 +4,18 @@ const map = L.map('map', {
 });
 
 const bounds = [[0,0], [4096,4096]];
-const image = L.imageOverlay('worldmap.png', bounds).addTo(map);
+L.imageOverlay('worldmap.png', bounds).addTo(map);
 map.fitBounds(bounds);
 
 const layers = {
   home: L.layerGroup().addTo(map),
-  fruits: L.layerGroup().addTo(layers.fruits),
-  stone: L.layerGroup().addTo(layers.stone),
-  ore: L.layerGroup().addTo(layers.ore)),
-  creatures: L.layerGroup().addTo(layers.creatures),
-  visitors: L.layerGroup().addTo(layers.visitors)
+  fruits: L.layerGroup().addTo(map),
+  stone: L.layerGroup().addTo(map),
+  ore: L.layerGroup().addTo(map),
+  creatures: L.layerGroup().addTo(map),
+  visitors: L.layerGroup().addTo(map)
 };
 
-L.circleMarker(location.coords, {
-  radius: 6,
-  fillColor: fruitColors[fruit],
-  color: "#222",
-  weight: 1,
-  fillOpacity: 0.95
-})
-.bindPopup(`<b>${fruit}</b>`)
-.addTo(layers.fruits);
 
 
 
