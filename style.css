@@ -1,7 +1,6 @@
 html, body {
   margin: 0;
   height: 100%;
-  font-family: sans-serif;
 }
 
 #container {
@@ -10,10 +9,9 @@ html, body {
 }
 
 #sidebar {
-  width: 260px;
-  background: #1e1e24;
-  color: white;
-  padding: 15px;
+  width: 250px;
+  background: #e7e3db;
+  padding: 20px;
 }
 
 #map {
