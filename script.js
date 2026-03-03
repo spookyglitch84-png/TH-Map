@@ -8,11 +8,12 @@ const image = L.imageOverlay('worldmap.png', bounds).addTo(map);
 map.fitBounds(bounds);
 
 const layers = {
-  village: L.layerGroup().addTo(map),
-  resource: L.layerGroup().addTo(map),
-  creature: L.layerGroup().addTo(map),
-  magic: L.layerGroup().addTo(map),
-  quest: L.layerGroup().addTo(map)
+  home: L.layerGroup().addTo(map),
+  fruits: L.layerGroup().addTo(layers.fruits),
+  stone: L.layerGroup().addTo(layers.stone),
+  ore: L.layerGroup().addTo(layers.ore)),
+  creatures: L.layerGroup().addTo(layers.creatures),
+  visitors: L.layerGroup().addTo(layers.visitors)
 };
 
 let currentSeason = "spring";
