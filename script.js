@@ -34,6 +34,39 @@ function buildFruitPopup(location) {
   `;
 }
 
+const fruitColors = {
+
+  Azureberry: "#6a5cff",
+  Sunapple: "#ffb703",
+  "Ghost Berry": "#d6d6ff",
+
+  Bloodberry: "#b3003c",
+  Emberberry: "#ff5733",
+  "Nightshade Berry": "#3b0a45",
+  Skydrop: "#4cc9f0",
+
+  Heartgleam: "#ff4d6d",
+  Honeycran: "#ff9f1c",
+  Nightblush: "#c9184a",
+  Solberry: "#ffd60a",
+  Tigermelon: "#ff7f11",
+  Velvenight: "#560bad",
+
+  Amberburst: "#ff8800",
+  Mellowspike: "#c77dff",
+  Mireberry: "#5f0f40",
+  Mirthshade: "#7209b7",
+  Scarletip: "#d00000",
+  Seafallow: "#0077b6",
+
+  Faepeach: "#ffcad4",
+  Frostgleam: "#90dbf4",
+  Icerose: "#caf0f8",
+  Lunabright: "#e0aaff",
+  Twilipuff: "#b8c0ff",
+  Velvitfrost: "#a0c4ff"
+};
+
 // === Coordinate Capture Tool ===
 
 map.on('click', function (e) {
@@ -64,28 +97,29 @@ map.on('click', function (e) {
 
 fruitLocations.forEach(location => {
 
-  L.circleMarker(location.coords, {
-    radius: 6,
-    fillColor: getSeasonColor(),
-    color: "#ffffff",
-    weight: 1,
-    fillOpacity: 0.9
-  })
-  .bindPopup(buildFruitPopup(location))
-  .addTo(map);
+  const fruitsHere = getActiveFruits(location);
 
-});
+  fruitsHere.forEach(fruit => {
 
-function getSeasonColor() {
+    L.circleMarker(location.coords, {
+      radius: 6,
+      fillColor: fruitColors[fruit] || "#ffffff",
+      color: "#222",
+      weight: 1,
+      fillOpacity: 0.95
+    })
+    .bindPopup(`<b>${fruit}</b><br>Fruit Node`)
+    .addTo(map);
 
-  const colors = {
-    spring: "#ff7eb6",
-    summer: "#ffd166",
-    fall: "#ff8c42",
-    winter: "#7ec8ff"
-  };
+  });
 
-  return colors[currentSeason];
+
+function getActiveFruits(location) {
+
+  const allFruit = location.fruits.all || [];
+  const seasonal = location.fruits[currentSeason] || [];
+
+  return [...allFruit, ...seasonal];
 }
 
 
