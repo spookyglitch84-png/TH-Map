@@ -15,6 +15,25 @@ const layers = {
   quest: L.layerGroup().addTo(map)
 };
 
+let currentSeason = "spring";
+
+function buildFruitPopup(location) {
+
+  const allFruit = location.fruits.all || [];
+  const seasonal = location.fruits[currentSeason] || [];
+
+  const combined = [...allFruit, ...seasonal];
+
+  const list = combined
+    .map(f => `<li>${f}</li>`)
+    .join("");
+
+  return `
+    <b>Fruit Node</b>
+    <ul>${list}</ul>
+  `;
+}
+
 // === Coordinate Capture Tool ===
 
 map.on('click', function (e) {
@@ -43,18 +62,33 @@ map.on('click', function (e) {
 });
 
 
-fetch("locations.json")
-  .then(res => res.json())
-  .then(data => {
-    data.forEach(loc => {
-      const marker = L.marker([loc.y, loc.x])
-        .bindPopup(`<h3>${loc.name}</h3><p>${loc.description}</p>`);
+fruitLocations.forEach(location => {
 
-      if (layers[loc.category]) {
-        marker.addTo(layers[loc.category]);
-      }
-    });
-  });
+  L.circleMarker(location.coords, {
+    radius: 6,
+    fillColor: getSeasonColor(),
+    color: "#ffffff",
+    weight: 1,
+    fillOpacity: 0.9
+  })
+  .bindPopup(buildFruitPopup(location))
+  .addTo(map);
+
+});
+
+function getSeasonColor() {
+
+  const colors = {
+    spring: "#ff7eb6",
+    summer: "#ffd166",
+    fall: "#ff8c42",
+    winter: "#7ec8ff"
+  };
+
+  return colors[currentSeason];
+}
+
+
 
 document.querySelectorAll("#sidebar input[type=checkbox]")
   .forEach(box => {
