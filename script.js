@@ -104,24 +104,6 @@ function getActiveFruits(location) {
   return [...allFruit, ...seasonal];
 }
 
-fruitLocations.forEach(location => {
-
-  const fruitsHere = getActiveFruits(location);
-
-  fruitsHere.forEach(fruit => {
-
-    L.circleMarker(location.coords, {
-      radius: 6,
-      fillColor: fruitColors[fruit] || "#ffffff",
-      color: "#222",
-      weight: 1,
-      fillOpacity: 0.95
-    })
-    .bindPopup(`<b>${fruit}</b><br>Fruit Node`)
-    .addTo(map);
-
-  });
-
 
 function getActiveFruits(location) {
 
