@@ -119,4 +119,10 @@ html, body {
   pointer-events: none;
   letter-spacing: 0.04em;
   backdrop-filter: blur(4px);
+  transition: background 0.15s, color 0.15s;
+}
+
+#coord-display.copied {
+  background: rgba(52, 130, 80, 0.88);
+  color: #ffffff;
 }
