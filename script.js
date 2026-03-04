@@ -9,10 +9,11 @@ map.fitBounds(bounds);
 
 // ---------------- LAYERS ----------------
 const layers = {
-  fruits: L.layerGroup().addTo(map),
-  stone: L.layerGroup().addTo(map),
-  ore: L.layerGroup().addTo(map),
-  creatures: L.layerGroup().addTo(map),
+  fruits:          L.layerGroup().addTo(map),
+  stone:           L.layerGroup().addTo(map),
+  crystal:         L.layerGroup().addTo(map),
+  ore:             L.layerGroup().addTo(map),
+  creatures:       L.layerGroup().addTo(map),
   magicalVisitors: L.layerGroup().addTo(map)
 };
 
@@ -46,9 +47,10 @@ const fruitColors = {
 };
 
 // ---------------- RESOURCE COLOURS ----------------
-const stoneColor         = "#a89070";
-const oreColor           = "#c0c0c0";
-const creatureColor      = "#e05252";
+const stoneColor          = "#a89070";
+const crystalColor        = "#a78bfa";
+const oreColor            = "#c0c0c0";
+const creatureColor       = "#e05252";
 const magicalVisitorColor = "#c77dff";
 
 // ---------------- ACTIVE SEASON ----------------
@@ -59,7 +61,6 @@ function drawFruits() {
   layers.fruits.clearLayers();
 
   fruitLocations.forEach(location => {
-    // Collect the right fruits for the active season
     let fruitsToShow = [...location.fruits.all];
     if (activeSeason !== "all" && location.fruits[activeSeason]) {
       fruitsToShow = [...fruitsToShow, ...location.fruits[activeSeason]];
@@ -88,7 +89,6 @@ drawFruits();
 
 // ---------------- DRAW STONE ----------------
 stoneLocations.forEach(location => {
-  const items = location.stones || [];
   L.circleMarker(location.coords, {
     radius: 6,
     fillColor: stoneColor,
@@ -96,8 +96,21 @@ stoneLocations.forEach(location => {
     weight: 1,
     fillOpacity: 0.9
   })
-  .bindPopup(`<b>Stone</b><br>${items.join("<br>")}`)
+  .bindPopup("<b>Stone</b>")
   .addTo(layers.stone);
+});
+
+// ---------------- DRAW CRYSTAL ----------------
+crystalLocations.forEach(location => {
+  L.circleMarker(location.coords, {
+    radius: 6,
+    fillColor: crystalColor,
+    color: "#222",
+    weight: 1,
+    fillOpacity: 0.9
+  })
+  .bindPopup("<b>Crystal</b>")
+  .addTo(layers.crystal);
 });
 
 // ---------------- DRAW ORE ----------------
@@ -146,6 +159,7 @@ magicalVisitorLocations.forEach(location => {
 const toggleMap = {
   "toggle-fruits":           layers.fruits,
   "toggle-stone":            layers.stone,
+  "toggle-crystal":          layers.crystal,
   "toggle-ore":              layers.ore,
   "toggle-creatures":        layers.creatures,
   "toggle-magical-visitors": layers.magicalVisitors
