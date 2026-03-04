@@ -46,20 +46,12 @@ const fruitColors = {
   "Velvitfrost":      "#dde5b6"
 };
 
-// ---------------- RESOURCE COLOURS ----------------
-const stoneColor          = "#a89070";
-const crystalColor        = "#a78bfa";
-const oreColor            = "#c0c0c0";
-const creatureColor       = "#e05252";
-const magicalVisitorColor = "#c77dff";
-
 // ---------------- ACTIVE SEASON ----------------
 let activeSeason = "all";
 
 // ---------------- DRAW FRUITS ----------------
 function drawFruits() {
   layers.fruits.clearLayers();
-
   fruitLocations.forEach(location => {
     let fruitsToShow = [...location.fruits.all];
     if (activeSeason !== "all" && location.fruits[activeSeason]) {
@@ -70,15 +62,10 @@ function drawFruits() {
         if (!fruitsToShow.includes(f)) fruitsToShow.push(f);
       });
     }
-
     fruitsToShow.forEach(fruit => {
       const color = fruitColors[fruit] || "#aaaaaa";
       L.circleMarker(location.coords, {
-        radius: 6,
-        fillColor: color,
-        color: "#222",
-        weight: 1,
-        fillOpacity: 0.9
+        radius: 6, fillColor: color, color: "#222", weight: 1, fillOpacity: 0.9
       })
       .bindPopup(`<b>${fruit}</b>`)
       .addTo(layers.fruits);
@@ -90,11 +77,7 @@ drawFruits();
 // ---------------- DRAW STONE ----------------
 stoneLocations.forEach(location => {
   L.circleMarker(location.coords, {
-    radius: 6,
-    fillColor: stoneColor,
-    color: "#222",
-    weight: 1,
-    fillOpacity: 0.9
+    radius: 6, fillColor: "#a89070", color: "#222", weight: 1, fillOpacity: 0.9
   })
   .bindPopup("<b>Stone</b>")
   .addTo(layers.stone);
@@ -102,56 +85,46 @@ stoneLocations.forEach(location => {
 
 // ---------------- DRAW CRYSTAL ----------------
 crystalLocations.forEach(location => {
-  L.circleMarker(location.coords, {
-    radius: 6,
-    fillColor: crystalColor,
-    color: "#222",
-    weight: 1,
-    fillOpacity: 0.9
-  })
-  .bindPopup("<b>Crystal</b>")
-  .addTo(layers.crystal);
+  (location.crystals || []).forEach(name => {
+    const type = crystalTypes[name] || { color: "#a78bfa", info: null };
+    const popup = type.info
+      ? `<b>${name}</b><br><i>⚠️ ${type.info}</i>`
+      : `<b>${name}</b>`;
+    L.circleMarker(location.coords, {
+      radius: 6, fillColor: type.color, color: "#222", weight: 1, fillOpacity: 0.9
+    })
+    .bindPopup(popup)
+    .addTo(layers.crystal);
+  });
 });
 
 // ---------------- DRAW ORE ----------------
 oreLocations.forEach(location => {
-  const items = location.ores || [];
   L.circleMarker(location.coords, {
-    radius: 6,
-    fillColor: oreColor,
-    color: "#222",
-    weight: 1,
-    fillOpacity: 0.9
+    radius: 6, fillColor: "#c0c0c0", color: "#222", weight: 1, fillOpacity: 0.9
   })
-  .bindPopup(`<b>Ore</b><br>${items.join("<br>")}`)
+  .bindPopup("<b>Ore</b>")
   .addTo(layers.ore);
 });
 
 // ---------------- DRAW CREATURES ----------------
 creatureLocations.forEach(location => {
-  const items = location.creatures || [];
-  L.circleMarker(location.coords, {
-    radius: 6,
-    fillColor: creatureColor,
-    color: "#222",
-    weight: 1,
-    fillOpacity: 0.9
-  })
-  .bindPopup(`<b>Creatures</b><br>${items.join("<br>")}`)
-  .addTo(layers.creatures);
+  (location.creatures || []).forEach(name => {
+    const type = creatureTypes[name] || { color: "#e05252" };
+    L.circleMarker(location.coords, {
+      radius: 6, fillColor: type.color, color: "#222", weight: 1, fillOpacity: 0.9
+    })
+    .bindPopup(`<b>${name}</b>`)
+    .addTo(layers.creatures);
+  });
 });
 
 // ---------------- DRAW MAGICAL VISITORS ----------------
 magicalVisitorLocations.forEach(location => {
-  const items = location.visitors || [];
   L.circleMarker(location.coords, {
-    radius: 6,
-    fillColor: magicalVisitorColor,
-    color: "#222",
-    weight: 1,
-    fillOpacity: 0.9
+    radius: 6, fillColor: "#c77dff", color: "#222", weight: 1, fillOpacity: 0.9
   })
-  .bindPopup(`<b>Magical Visitor</b><br>${items.join("<br>")}`)
+  .bindPopup("<b>Ulmbrow</b>")
   .addTo(layers.magicalVisitors);
 });
 
@@ -164,7 +137,6 @@ const toggleMap = {
   "toggle-creatures":        layers.creatures,
   "toggle-magical-visitors": layers.magicalVisitors
 };
-
 Object.entries(toggleMap).forEach(([id, layer]) => {
   document.getElementById(id).addEventListener("change", function () {
     this.checked ? map.addLayer(layer) : map.removeLayer(layer);
@@ -225,7 +197,6 @@ map.on("click", e => {
   const lat = Math.round(e.latlng.lat);
   const lng = Math.round(e.latlng.lng);
   const coordText = `[${lat}, ${lng}]`;
-
   coordBox.textContent = coordText;
   copyToClipboard(coordText);
   console.log(coordText);
