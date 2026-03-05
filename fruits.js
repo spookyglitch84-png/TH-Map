@@ -1,23 +1,26 @@
-// Full list of fruits by season — for reference when adding locations
-const fruitList = {
-  all:    ["Azureberry", "Sunapple", "Ghost Berry"],
-  spring: ["Bloodberry", "Emberberry", "Nightshade Berry", "Skydrop"],
-  summer: ["Heartgleam", "Honeycran", "Nightblush", "Solberry", "Tigermelon", "Velvenight"],
-  fall:   ["Amberburst", "Mellowspike", "Mireberry", "Mirthshade", "Scarletip", "Seafallow"],
-  winter: ["Faepeach", "Frostgleam", "Icerose", "Lunabright", "Twilipuff", "Velvitfrost"]
-};
+// ---------------- FRUIT TYPES ----------------
+// Seasonal rotations — same location, fruit changes by season
+const seasonalGroups = [
+  { spring: "Ghost Berry",      summer: "Solberry",        fall: "Mirthshade",   winter: "Velvitfrost Berry" },
+  { spring: "Azureberry",       summer: "Nightblush Berry", fall: "Mireberry",    winter: "Twilipuff" },
+  { spring: "Skydrop Berry",    summer: "Tigermelon",      fall: "Mellowspike",  winter: "Faepeach" },
+  { spring: "Nightshade Berry", summer: "Velvenight Berry", fall: "Scarletip",    winter: "Frostgleam" },
+  { spring: "Emberberry",       summer: "Heartgleam",      fall: "Seafallow Berry", winter: "Icerose Berry" },
+  { spring: "Bloodberry",       summer: "Honeycran Berry",  fall: "Amberburst",   winter: "Lunabright" }
+];
 
-// Location entries — add real coords here as you map them
-// Example:
-// {
-//   id: 1,
-//   coords: [1200, 800],
-//   fruits: {
-//     all: ["Azureberry"],
-//     spring: ["Bloodberry"],
-//     summer: [],
-//     fall: ["Amberburst"],
-//     winter: []
-//   }
-// }
-const fruitLocations = [];
+// Persistent fruits — present all year at these locations
+// Azureberry and Ghost Berry have persistent locations separate from their seasonal ones
+
+const fruitLocations = [
+  // PERSISTENT example:
+  // { id: 1, coords: [x, y], type: "persistent", fruit: "Azureberry" }
+
+  // SEASONAL example:
+  // { id: 2, coords: [x, y], type: "seasonal", fruits: {
+  //   spring: "Ghost Berry",
+  //   summer: "Solberry",
+  //   fall:   "Mirthshade",
+  //   winter: "Velvitfrost Berry"
+  // }}
+];
