@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
 html, body {
   margin: 0;
   height: 100%;
-  font-family: Georgia, serif;
+  font-family: 'Crimson Text', Georgia, serif;
 }
 
 #container {
@@ -11,34 +13,79 @@ html, body {
 
 /* ---------- SIDEBAR ---------- */
 #sidebar {
-  width: 220px;
-  background: #e7e3db;
-  padding: 20px 16px;
+  width: 230px;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(0,0,0,0.012) 40px,
+      rgba(0,0,0,0.012) 41px
+    ),
+    linear-gradient(180deg, #ede7db 0%, #e2d9cc 100%);
+  padding: 20px 16px 0 16px;
   flex-shrink: 0;
   overflow-y: auto;
-  box-shadow: 2px 0 6px rgba(0,0,0,0.1);
+  box-shadow: 3px 0 12px rgba(0,0,0,0.18);
   display: flex;
   flex-direction: column;
+  border-right: 2px solid #c0b49e;
 }
 
+/* ---------- TITLE ---------- */
 #sidebar h2 {
-  margin: 0 0 18px 0;
-  font-size: 17px;
-  color: #3a2e1e;
-  border-bottom: 2px solid #c8bfae;
-  padding-bottom: 10px;
+  margin: 0 0 4px 0;
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #2a1f0e;
+  text-align: center;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #c0b49e;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.4);
+  position: relative;
 }
 
+#sidebar h2::after {
+  content: "✦";
+  display: block;
+  font-size: 10px;
+  color: #9a7a50;
+  margin-top: 4px;
+  letter-spacing: 6px;
+}
+
+/* ---------- SIDEBAR SECTIONS ---------- */
 .sidebar-section {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  margin-top: 14px;
 }
 
 .sidebar-section h3 {
-  font-size: 12px;
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #7a6a55;
+  letter-spacing: 0.14em;
+  color: #8a7055;
   margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sidebar-section h3::before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c0b49e);
+}
+
+.sidebar-section h3::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to left, transparent, #c0b49e);
 }
 
 .sidebar-section label {
@@ -49,6 +96,7 @@ html, body {
   color: #3a2e1e;
   margin-bottom: 6px;
   cursor: pointer;
+  font-family: 'Crimson Text', serif;
 }
 
 .sidebar-section label:hover {
@@ -59,7 +107,7 @@ html, body {
 #season-filters {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 }
 
 .season-row {
@@ -69,37 +117,40 @@ html, body {
 }
 
 .season-btn {
-  background: #d4cdc4;
-  border: 1px solid #b8b0a4;
+  background: linear-gradient(135deg, #d8d0c4, #ccc4b8);
+  border: 1px solid #b0a898;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 6px 10px;
   font-size: 13px;
-  font-family: Georgia, serif;
+  font-family: 'Crimson Text', serif;
   color: #3a2e1e;
   cursor: pointer;
   text-align: left;
-  transition: background 0.15s, color 0.15s;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
   width: 100%;
+  font-weight: 600;
 }
 
 .season-btn:hover {
-  background: #c5bdb3;
+  background: linear-gradient(135deg, #ccc4b4, #bfb8ac);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
 }
 
 .season-btn.active {
-  background: #6b4c2a;
-  color: #f0ead6;
+  background: linear-gradient(135deg, #7a5530, #5c3d1e);
+  color: #f5ead6;
   border-color: #4e3620;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
 }
 
 /* ---------- FRUIT DROPDOWN ---------- */
 .fruit-dropdown {
   display: none;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
   padding-left: 10px;
-  border-left: 2px solid #c8bfae;
-  margin-bottom: 3px;
+  border-left: 2px solid #c0b49e;
+  margin-bottom: 2px;
 }
 
 .fruit-dropdown.open {
@@ -110,8 +161,8 @@ html, body {
   background: none;
   border: none;
   padding: 3px 6px;
-  font-size: 12px;
-  font-family: Georgia, serif;
+  font-size: 13px;
+  font-family: 'Crimson Text', serif;
   color: #5a4a35;
   cursor: pointer;
   text-align: left;
@@ -138,6 +189,16 @@ html, body {
   width: 100%;
   height: 100%;
   cursor: crosshair !important;
+}
+
+/* Decorative vignette overlay on map edges */
+#map-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 60px rgba(0,0,0,0.35);
+  z-index: 500;
 }
 
 .leaflet-grab {
@@ -182,17 +243,18 @@ html, body {
   box-sizing: border-box;
   padding: 7px 10px;
   font-size: 13px;
-  font-family: Georgia, serif;
-  border: 1px solid #b8b0a4;
+  font-family: 'Crimson Text', serif;
+  border: 1px solid #b0a898;
   border-radius: 5px;
-  background: #f5f1eb;
+  background: #f5f0e8;
   color: #3a2e1e;
   outline: none;
 }
 
 #search-input:focus {
   border-color: #6b4c2a;
-  background: #fff;
+  background: #fffdf8;
+  box-shadow: 0 0 0 2px rgba(107,76,42,0.12);
 }
 
 #search-results {
@@ -201,8 +263,8 @@ html, body {
   top: 100%;
   left: 0;
   right: 0;
-  background: #f5f1eb;
-  border: 1px solid #b8b0a4;
+  background: #f5f0e8;
+  border: 1px solid #b0a898;
   border-top: none;
   border-radius: 0 0 5px 5px;
   z-index: 2000;
@@ -219,6 +281,7 @@ html, body {
   font-size: 13px;
   color: #3a2e1e;
   border-bottom: 1px solid #e0d8ce;
+  font-family: 'Crimson Text', serif;
 }
 
 .search-result-item:last-child {
@@ -230,7 +293,7 @@ html, body {
 }
 
 .search-result-label {
-  font-family: Georgia, serif;
+  font-family: 'Crimson Text', serif;
 }
 
 .search-result-category {
@@ -246,12 +309,12 @@ html, body {
 /* ---------- MAP CREDIT ---------- */
 #map-credit {
   margin-top: auto;
-  padding: 14px 16px;
+  padding: 12px 16px;
   font-size: 11px;
   color: #9a8a75;
   text-align: center;
-  border-top: 1px solid #c8bfae;
-  font-family: Georgia, serif;
+  border-top: 1px solid #c0b49e;
+  font-family: 'Crimson Text', serif;
   letter-spacing: 0.03em;
 }
 
