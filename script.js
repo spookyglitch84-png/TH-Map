@@ -276,33 +276,43 @@ let highlightCircle = null;
 function buildSearchIndex() {
   const index = [];
 
-  // Fruits
+  // Fruits — collect all locations per fruit name
+  const fruitMap = {};
   fruitLocations.forEach(location => {
     if (location.type === "persistent") {
-      index.push({ label: location.fruit, category: "Fruit", coords: location.coords });
+      const name = location.fruit;
+      if (!fruitMap[name]) fruitMap[name] = [];
+      fruitMap[name].push(location.coords);
     } else if (location.type === "seasonal") {
       Object.entries(location.fruits).forEach(([season, name]) => {
-        if (!index.find(e => e.label === name && e.category === "Fruit")) {
-          index.push({ label: name, category: "Fruit", coords: location.coords, season });
-        }
+        if (!fruitMap[name]) fruitMap[name] = [];
+        fruitMap[name].push(location.coords);
       });
     }
   });
-
-  // Crystals
-  crystalLocations.forEach(location => {
-    (location.crystals || []).forEach(name => {
-      index.push({ label: name, category: "Crystal", coords: location.coords });
-    });
+  Object.entries(fruitMap).forEach(([name, allCoords]) => {
+    index.push({ label: name, category: "Fruit", allCoords });
   });
 
-  // Creatures — index both creature name and resource name
+  // Crystals — collect all locations per crystal name
+  const crystalMap = {};
+  crystalLocations.forEach(location => {
+    (location.crystals || []).forEach(name => {
+      if (!crystalMap[name]) crystalMap[name] = [];
+      crystalMap[name].push(location.coords);
+    });
+  });
+  Object.entries(crystalMap).forEach(([name, allCoords]) => {
+    index.push({ label: name, category: "Crystal", allCoords });
+  });
+
+  // Creatures — index creature name and resource name, single coord
   creatureLocations.forEach(location => {
     (location.creatures || []).forEach(name => {
       const type = creatureTypes[name];
-      index.push({ label: name, category: "Creature", coords: location.coords });
+      index.push({ label: name, category: "Creature", allCoords: [location.coords] });
       if (type && type.resource) {
-        index.push({ label: type.resource, category: "Resource", coords: location.coords, creatureName: name });
+        index.push({ label: type.resource, category: "Resource", allCoords: [location.coords], creatureName: name });
       }
     });
   });
@@ -310,24 +320,53 @@ function buildSearchIndex() {
   return index;
 }
 
-function showHighlight(coords) {
-  if (highlightCircle) map.removeLayer(highlightCircle);
-  highlightCircle = L.circleMarker(coords, {
-    radius: 18,
-    color: "#ffffff",
-    weight: 3,
-    fillColor: "#ffffff",
-    fillOpacity: 0.25,
-    opacity: 0.9
-  }).addTo(map);
+// Track search highlight layers so we can clear them
+let searchHighlightLayers = [];
+
+function clearSearchHighlights() {
+  searchHighlightLayers.forEach(l => map.removeLayer(l));
+  searchHighlightLayers = [];
+}
+
+function highlightAllCoords(allCoords, category) {
+  clearSearchHighlights();
+
+  // Hide all layers except the relevant one
+  Object.values(layers).forEach(l => map.removeLayer(l));
+  if (category === "Fruit") map.addLayer(layers.fruits);
+  else if (category === "Crystal") map.addLayer(layers.crystal);
+  else if (category === "Creature" || category === "Resource") map.addLayer(layers.creatures);
+
+  // Fit map to show all matching markers, zoomed out enough to see them all
+  if (allCoords.length === 1) {
+    map.setView(allCoords[0], 1);
+  } else {
+    const latLngs = allCoords.map(c => L.latLng(c[0], c[1]));
+    map.fitBounds(L.latLngBounds(latLngs).pad(0.3));
+  }
+
+  // Pulse highlight rings on each matching coord
+  allCoords.forEach(coords => {
+    const ring = L.circleMarker(coords, {
+      radius: 16,
+      color: "#ffffff",
+      weight: 3,
+      fillColor: "#ffffff",
+      fillOpacity: 0.2,
+      opacity: 1
+    }).addTo(map);
+    searchHighlightLayers.push(ring);
+  });
 
   // Fade out after 3 seconds
-  setTimeout(() => {
-    if (highlightCircle) {
-      map.removeLayer(highlightCircle);
-      highlightCircle = null;
-    }
-  }, 3000);
+  setTimeout(() => clearSearchHighlights(), 3000);
+}
+
+function restoreAllLayers() {
+  Object.entries(layers).forEach(([key, layer]) => {
+    const checkbox = document.getElementById("toggle-" + key.replace(/([A-Z])/g, '-$1').toLowerCase());
+    if (!checkbox || checkbox.checked) map.addLayer(layer);
+  });
 }
 
 const searchInput = document.getElementById("search-input");
@@ -345,7 +384,7 @@ searchInput.addEventListener("input", function () {
   const index = buildSearchIndex();
   const matches = index.filter(e => e.label.toLowerCase().includes(query));
 
-  // Deduplicate by label
+  // Deduplicate by label + category
   const seen = new Set();
   const unique = matches.filter(e => {
     const key = e.label + e.category;
@@ -364,8 +403,7 @@ searchInput.addEventListener("input", function () {
     item.className = "search-result-item";
     item.innerHTML = `<span class="search-result-label">${result.label}</span><span class="search-result-category">${result.category}</span>`;
     item.addEventListener("click", () => {
-      map.setView(result.coords, 1);
-      showHighlight(result.coords);
+      highlightAllCoords(result.allCoords, result.category);
       searchResults.style.display = "none";
       searchInput.value = result.label;
     });
@@ -373,6 +411,16 @@ searchInput.addEventListener("input", function () {
   });
 
   searchResults.style.display = "block";
+});
+
+// Clear search: restore all layers and highlights when input is cleared
+searchInput.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") {
+    searchInput.value = "";
+    searchResults.style.display = "none";
+    clearSearchHighlights();
+    restoreAllLayers();
+  }
 });
 
 // Hide results when clicking outside
