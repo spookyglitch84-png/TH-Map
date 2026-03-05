@@ -123,5 +123,21 @@ const fruitLocations = [
   { id: 101,  coords: [1207, 2802], type: "seasonal", fruits: { spring: "Bloodberry", summer: "Honeycran Berry", fall: "Amberburst", winter: "Lunabright" } },
   { id: 102,  coords: [1528, 2877], type: "seasonal", fruits: { spring: "Bloodberry", summer: "Honeycran Berry", fall: "Amberburst", winter: "Lunabright" } },
   
-
+  // APPLES:
+  { id: 103, coords: [2969, 2365], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 104, coords: [3138, 2168], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 105, coords: [3136, 2131], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 106, coords: [3129, 2098], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 107, coords: [3170, 2167], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 108, coords: [3167, 2128], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 109, coords: [3159, 2095], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 110, coords: [3203, 2164], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 111, coords: [3199, 2125], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 112, coords: [3192, 2089], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 113, coords: [3235, 2158], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 114, coords: [3229, 2121], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 115, coords: [3224, 2087], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 116, coords: [3264, 2116], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } },
+  { id: 117, coords: [3257, 2082], type: "seasonal", fruits: { spring: "Greenwhistle Apple", summer: "Sunapple", fall: "Amberfall Apple", winter: "Frostveil Apple" } }
+];
 ];
