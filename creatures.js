@@ -112,5 +112,7 @@ const creatureLocations = [
   { id: 15, coords: [2300, 3637], radius: 100, creatures: ["Emberlyn"] },
   { id: 17, coords: [3551, 2958], radius: 20,  creatures: ["Jasper"] },
   { id: 18, coords: [3509, 2969], radius: 20,  creatures: ["Maple"] },
-  { id: 19, coords: [2838, 1466], radius: 100, creatures: ["Wimblehop"] }
+  { id: 19, coords: [2838, 1466], radius: 100, creatures: ["Wimblehop"] },
+  { id: 20, coords: [2800, 3716], radius: 100, creatures: ["Wortles"] },
+  { id: 21, coords: [3000, 2976], radius: 100, creatures: ["Azurepinch"] }
 ];
