@@ -306,15 +306,25 @@ function buildSearchIndex() {
     index.push({ label: name, category: "Crystal", allCoords });
   });
 
-  // Creatures — index creature name and resource name, single coord
+  // Creatures — collect all coords per creature name and resource name
+  const creatureMap = {};
+  const resourceMap = {};
   creatureLocations.forEach(location => {
     (location.creatures || []).forEach(name => {
       const type = creatureTypes[name];
-      index.push({ label: name, category: "Creature", allCoords: [location.coords] });
+      if (!creatureMap[name]) creatureMap[name] = [];
+      creatureMap[name].push(location.coords);
       if (type && type.resource) {
-        index.push({ label: type.resource, category: "Resource", allCoords: [location.coords], creatureName: name });
+        if (!resourceMap[type.resource]) resourceMap[type.resource] = [];
+        resourceMap[type.resource].push(location.coords);
       }
     });
+  });
+  Object.entries(creatureMap).forEach(([name, allCoords]) => {
+    index.push({ label: name, category: "Creature", allCoords });
+  });
+  Object.entries(resourceMap).forEach(([resource, allCoords]) => {
+    index.push({ label: resource, category: "Resource", allCoords });
   });
 
   return index;
