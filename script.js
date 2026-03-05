@@ -59,6 +59,12 @@ const fruitColors = {
 let activeSeason = "spring";
 let activeFruit = ""; // empty = show all fruits for the season
 
+// Open spring dropdown on load
+document.addEventListener("DOMContentLoaded", () => {
+  const springDropdown = document.getElementById("dropdown-spring");
+  if (springDropdown) springDropdown.classList.add("open");
+});
+
 // ---------------- DRAW FRUITS ----------------
 function drawFruits() {
   layers.fruits.clearLayers();
