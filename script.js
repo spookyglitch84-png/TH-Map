@@ -174,15 +174,6 @@ creatureLocations.forEach(location => {
   });
 });
 
-// ---------------- DRAW MAGICAL VISITORS ----------------
-magicalVisitorLocations.forEach(location => {
-  L.circleMarker(location.coords, {
-    radius: 6, fillColor: "#c77dff", color: "#222", weight: 1, fillOpacity: 0.9
-  })
-  .bindPopup("<b>Ulmbrow</b>")
-  .addTo(layers.magicalVisitors);
-});
-
 // ---------------- LAYER TOGGLES ----------------
 const toggleMap = {
   "toggle-fruits":           layers.fruits,
