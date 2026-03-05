@@ -12,5 +12,22 @@ const crystalTypes = {
 
 const crystalLocations = [
   { id: 1, coords: [1870, 1828], crystals: ["Lavendrite"] },
-  { id: 2, coords: [2203, 3498], crystals: ["Lavendrite"] }
+  { id: 2, coords: [2203, 3498], crystals: ["Lavendrite"] },
+  { id: 3, coords: [2284, 3646], crystals: ["Lavendrite"] },
+
+  { id: 4, coords: [2477, 819], crystals: ["Blue Sky"] },
+  { id: 5, coords: [2341, 823], crystals: ["Blue Sky"] },
+  { id: 6, coords: [2598, 3720], crystals: ["Blue Sky"] },
+
+  { id: 7, coords: [1255, 2695], crystals: ["Dragon's Blood"] },
+  { id: 8, coords: [1267, 2746], crystals: ["Dragon's Blood"] },
+  { id: 9, coords: [1214, 2784], crystals: ["Dragon's Blood"] },
+
+  { id: 10, coords: [2539, 3267], crystals: ["Ferbrite"] },
+  { id: 11, coords: [2561, 3359], crystals: ["Ferbrite"] },
+  { id: 12, coords: [3167, 2024], crystals: ["Ferbrite"] },
+  { id: 13, coords: [2970, 392], crystals: ["Ferbrite"] },
+  { id: 14, coords: [3034, 332], crystals: ["Ferbrite"] },
+  { id: 15, coords: [3171, 565], crystals: ["Ferbrite"] },
+  { id: 16, coords: [3171, 616], crystals: ["Ferbrite"] },
 ];
