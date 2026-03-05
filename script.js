@@ -176,15 +176,23 @@ creatureLocations.forEach(location => {
 
 // ---------------- LAYER TOGGLES ----------------
 const toggleMap = {
-  "toggle-fruits":           layers.fruits,
-  "toggle-stone":            layers.stone,
-  "toggle-crystal":          layers.crystal,
-  "toggle-creatures":        layers.creatures,
-  "toggle-magical-visitors": layers.magicalVisitors
+  "toggle-fruits":     layers.fruits,
+  "toggle-stone":      layers.stone,
+  "toggle-crystal":    layers.crystal,
+  "toggle-creatures":  layers.creatures
 };
 Object.entries(toggleMap).forEach(([id, layer]) => {
-  document.getElementById(id).addEventListener("change", function () {
-    this.checked ? map.addLayer(layer) : map.removeLayer(layer);
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener("change", function () {
+    // Clear any active search state first
+    clearSearchHighlights();
+    if (this.checked) {
+      map.addLayer(layer);
+      if (id === "toggle-fruits") drawFruits();
+    } else {
+      map.removeLayer(layer);
+    }
   });
 });
 
@@ -415,10 +423,12 @@ function highlightAllCoords(allCoords, category, label) {
 }
 
 function restoreAllLayers() {
-  Object.entries(layers).forEach(([key, layer]) => {
-    const checkbox = document.getElementById("toggle-" + key.replace(/([A-Z])/g, '-$1').toLowerCase());
-    if (!checkbox || checkbox.checked) map.addLayer(layer);
+  Object.entries(toggleMap).forEach(([id, layer]) => {
+    const checkbox = document.getElementById(id);
+    if (checkbox && checkbox.checked) map.addLayer(layer);
   });
+  // Redraw fruits with active season/filter
+  drawFruits();
 }
 
 const searchInput = document.getElementById("search-input");
