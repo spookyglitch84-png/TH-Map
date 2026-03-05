@@ -37,15 +37,13 @@ html, body {
   text-align: center;
   padding-bottom: 12px;
   border-bottom: 1px solid #c0b49e;
-  margin-bottom: 4px;
+  margin: -20px -16px 4px -16px;
 }
 
 #sidebar-logo img {
   width: 100%;
-  max-width: 190px;
   height: auto;
   display: block;
-  margin: 0 auto;
 }
 
 /* ---------- SIDEBAR SECTIONS ---------- */
