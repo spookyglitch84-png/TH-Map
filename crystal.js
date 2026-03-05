@@ -1,13 +1,13 @@
 // Crystal types and their special spawn conditions
 const crystalTypes = {
-  "Lavendrite":     { color: "#c084fc", info: null },
-  "Blue Sky":       { color: "#38bdf8", info: null },
-  "Dragon's Blood": { color: "#dc2626", info: null },
-  "Fernbrite":      { color: "#4ade80", info: null },
-  "Honeyglow":      { color: "#fbbf24", info: null },
-  "Lunacite":       { color: "#e2e8f0", info: "Bright unicorn event on the Full Moon" },
-  "Dark Lunacite":  { color: "#4c1d95", info: "Dark unicorn event on the New Moon" },
-  "Starshard":      { color: "#f0abfc", info: "Meteor strike random event" }
+  "Lavendrite":     { color: "#c9a0dc", info: null },                                        // lavender
+  "Blue Sky":       { color: "#00aaff", info: null },                                        // bright blue
+  "Dragon's Blood": { color: "#ff1a1a", info: null },                                        // bright red
+  "Fernbrite":      { color: "#00dd44", info: null },                                        // bright green
+  "Honeyglow":      { color: "#f5c400", info: null },                                        // honey yellow
+  "Lunacite":       { color: "#ffe0ec", info: "Bright unicorn event on the Full Moon" },     // very pale pink
+  "Dark Lunacite":  { color: "#b39ddb", info: "Dark unicorn event on the New Moon" },        // pastel dark purple
+  "Starshard":      { color: "#f0d080", info: "Meteor strike random event" }                 // light gold
 };
 
 const crystalLocations = [
